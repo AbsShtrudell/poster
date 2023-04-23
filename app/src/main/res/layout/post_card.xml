@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/round_square"
+    android:padding="@dimen/post_overlay_padding">
+
+
+    <TextView
+        android:id="@+id/header_textView"
+        style="@style/post_header_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_textView"
+        style="@style/post_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/post_items_spacing"
+        android:text="@string/text_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_textView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/post_items_spacing"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="@string/post_image_ratio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_textView"
+        app:shapeAppearanceOverlay="@style/round_image"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <include
+        android:id="@+id/compact_player_container"
+        layout="@layout/compact_player"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/post_items_spacing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_imageView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
