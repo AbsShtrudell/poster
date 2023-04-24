@@ -41,9 +41,8 @@
         app:shapeAppearanceOverlay="@style/round_image"
         tools:src="@tools:sample/backgrounds/scenic" />
 
-    <include
-        android:id="@+id/compact_player_container"
-        layout="@layout/compact_player"
+    <com.shtrudell.poster.view.CompactMusicPlayer
+        android:id="@+id/compact_player"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/post_items_spacing"

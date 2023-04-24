@@ -1,5 +1,7 @@
 package com.shtrudell.poster;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.net.URI;
 
@@ -11,17 +13,17 @@ import lombok.Setter;
 public class Post implements Serializable {
     private String header;
     private String text;
-    private URI image;
-    private URI song;
+    private Uri image;
+    private Uri song;
 
-    public Post(String header, String text, URI image, URI song) {
+    public Post(String header, String text, Uri image, Uri song) {
         this.header = header;
         this.text = text;
         this.image = image;
         this.song = song;
     }
 
-    public Post(String header, String text, URI image) {
+    public Post(String header, String text, Uri image) {
         this.header = header;
         this.text = text;
         this.image = image;
@@ -48,19 +50,19 @@ public class Post implements Serializable {
         this.text = text;
     }
 
-    public URI getImage() {
+    public Uri getImage() {
         return image;
     }
 
-    public void setImage(URI image) {
+    public void setImage(Uri image) {
         this.image = image;
     }
 
-    public URI getSong() {
+    public Uri getSong() {
         return song;
     }
 
-    public void setSong(URI song) {
+    public void setSong(Uri song) {
         this.song = song;
     }
 }
