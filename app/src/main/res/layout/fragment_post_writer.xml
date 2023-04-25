@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.PostWriterFragment"
-    android:background="@color/light_grey">
+    tools:context=".fragment.PostWriterFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/round_square"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:padding="@dimen/post_overlay_padding">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_vertical_margin"
+            android:layout_marginBottom="@dimen/layout_vertical_margin"
+            style="@style/layout_card">
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/post_writer_header_editor"
+            style="@style/post_writer_header_editor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="@string/post_writer_header_hint"
+            android:importantForAutofill="no"
             android:inputType="text"
-            android:text="Name"
+            android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextText2"
-            android:layout_width="wrap_content"
+            android:id="@+id/post_writer_text_editor"
+            style="@style/post_writer_text_editor"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/post_items_spacing"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+            android:gravity="top|start"
+            android:hint="@string/post_writer_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLines="8"
+            android:minHeight="48dp"
+            android:scrollbars="vertical"
+            android:singleLine="false"
+            app:layout_constraintHeight_max="wrap"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintTop_toBottomOf="@+id/post_writer_header_editor"
+            tools:layout_editor_absoluteX="12dp" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_imageView2"
+            android:id="@+id/image_imageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/post_items_spacing"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="@string/post_image_ratio"
+            style="@style/round_image"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText2"
-            app:shapeAppearanceOverlay="@style/round_image"
+            app:layout_constraintTop_toBottomOf="@+id/post_writer_text_editor"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <com.shtrudell.poster.view.CompactMusicPlayer
@@ -54,34 +58,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/post_items_spacing"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/image_imageView">
+        </com.shtrudell.poster.view.CompactMusicPlayer>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="@+id/button2"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toTopOf="@+id/button2"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/add_image_button"
+            style="@style/add_image_button"
             android:layout_marginTop="@dimen/post_items_spacing"
-            android:text="Button"
+            android:importantForAccessibility="no"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/compact_player" />
+            app:layout_constraintTop_toBottomOf="@+id/compact_player"
+            tools:ignore="TouchTargetSizeCheck" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="@+id/button"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <ImageButton
+            android:id="@+id/add_song_button"
+            style="@style/add_music_button"
+            android:layout_marginStart="12dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@+id/add_image_button"
+            app:layout_constraintStart_toEndOf="@+id/add_image_button"
+            app:layout_constraintTop_toTopOf="@+id/add_image_button"
+            tools:ignore="TouchTargetSizeCheck" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/send_post_button"
+            style="@style/send_post"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@+id/add_song_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/add_song_button"
+            tools:ignore="TouchTargetSizeCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

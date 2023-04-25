@@ -4,6 +4,14 @@
     <dimen name="post_overlay_padding">12dp</dimen>
     <dimen name="post_items_spacing">12dp</dimen>
     <dimen name="song_name_margin">10dp</dimen>
+    <dimen name="player_button_padding">7dp</dimen>
+    <dimen name="player_button_size">35dp</dimen>
+    <dimen name="post_card_spacing">10dp</dimen>
+
+    <dimen name="header_text_size">24sp</dimen>
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="add_post_button_margin">16dp</dimen>
+    <dimen name="layout_vertical_margin">10dp</dimen>
 
     <string name="post_image_ratio">W,1:3.4</string>
 </resources>

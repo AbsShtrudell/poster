@@ -8,9 +8,10 @@
 
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_postList"
+        android:id="@+id/fragment_container"
         android:name="com.shtrudell.poster.fragment.PostListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

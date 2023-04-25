@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="round_image">
+    <!-- Shapes -->
+    <style name="round_image_shape">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/post_corners_radius</item>
     </style>
+
+    <!-- Text -->
 
     <style name="singleLine_textView">
         <item name="android:textAppearance">@style/text</item>
@@ -16,40 +19,96 @@
         <item name="singleLine">false</item>
     </style>
 
+    <style name="full_post_text_view" >
+        <item name="android:textAppearance">@style/text</item>
+    </style>
+
     <style name="post_header_view" parent="singleLine_textView">
-        <item name="android:textAppearance">@style/text.header</item>
+        <item name="android:textAppearance">@style/text_header</item>
     </style>
 
-    <style name="post_linear_layout">
-        <item name="android:showDividers">middle</item>
-        <item name="android:divider">@drawable/linear_layout_divider</item>
+    <style name="text_editor">
+        <item name="android:textAppearance">@style/text</item>
+        <item name="android:textColorHint">?attr/hintTextColor</item>
+        <item name="android:textColor">@null</item>
+        <item name="textAllCaps">@null</item>
+        <item name="android:background">@null</item>
     </style>
 
-    <style name="player_button">
-        <item name="android:layout_width">35dp</item>
-        <item name="android:layout_height">35dp</item>
+    <style name="post_writer_header_editor" parent="text_editor">
+        <item name="android:textAppearance">@style/text_header</item>
+    </style>
+
+    <style name="post_writer_text_editor" parent="text_editor">
+        <item name="android:textAppearance">@style/text</item>
+    </style>
+
+    <!-- Buttons -->
+
+    <style name="accent_button">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+    </style>
+
+    <style name="player_button" parent="accent_button">
+        <item name="android:layout_width">@dimen/player_button_size</item>
+        <item name="android:layout_height">@dimen/player_button_size</item>
         <item name="android:background">@drawable/circle</item>
-        <item name="android:backgroundTint">@color/light_blue</item>
+        <item name="android:src">@drawable/player_button</item>
+        <item name="android:padding">@dimen/player_button_padding</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
-    <style name="text" parent="">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/black</item>
+    <style name="add_post_button" parent="accent_button">
+        <item name="tint">?attr/colorOnPrimary</item>
+        <item name="srcCompat">@drawable/plus_ico</item>
     </style>
 
-    <style name="text.header">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="textAllCaps">true</item>
+    <style name="icon_button">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:backgroundTint">@color/grey</item>
     </style>
 
-    <style name="text_hint" parent="text">
-        <item name="android:textColor">@color/dark_grey</item>
+    <style name="icon_button.accent" parent="accent_button"/>
+
+    <style name="add_image_button" parent="icon_button">
+        <item name="android:background">@drawable/image_ico</item>
     </style>
 
-    <style name="text_header_hint" parent="text.header">
-        <item name="android:textColor">@color/dark_grey</item>
+    <style name="add_music_button" parent="icon_button">
+        <item name="android:background">@drawable/double_note_ico</item>
+    </style>
+
+    <style name="send_post" parent="icon_button.accent">
+        <item name="android:background">@drawable/paper_plane</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="round_image">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="layout_constraintDimensionRatio">@string/post_image_ratio</item>
+        <item name="shapeAppearanceOverlay">@style/round_image_shape</item>
+    </style>
+
+    <!-- Layouts -->
+
+    <style name="layout_card">
+        <item name="android:background">?attr/cardBackground</item>
+        <item name="android:padding">@dimen/post_overlay_padding</item>
+        <item name="android:backgroundTint">?attr/containerColor</item>
+    </style>
+
+    <style name="layout_card.compact_post">
+
+    </style>
+
+    <style name="layout_full_size_image">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="linear_layout_with_spacing">
+        <item name="android:divider">@drawable/linear_layout_divider</item>
+        <item name="android:showDividers">middle</item>
     </style>
 </resources>

@@ -2,9 +2,11 @@ package com.shtrudell.poster.view;
 
 import android.content.Context;
 import android.media.AudioAttributes;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
@@ -47,7 +49,9 @@ public class CompactMusicPlayer extends ConstraintLayout {
         });
     }
 
-    private void createMusicPlayer(Context context,Uri source) {
+    private boolean createMusicPlayer(Context context, Uri source) {
+        if(source == null) return false;
+
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioAttributes(new AudioAttributes.Builder().
                 setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).
@@ -55,15 +59,17 @@ public class CompactMusicPlayer extends ConstraintLayout {
                 build());
         try {
             mediaPlayer.setDataSource(context, source);
-            listener.onMediaPlayerUpdated();
+            if(listener != null)
+                listener.onMediaPlayerUpdated();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Log.e("Error",e.getMessage());
         }
+        return true;
     }
 
     public void start() {
         if(mediaPlayer == null)
-            createMusicPlayer(context, source);
+            if(!createMusicPlayer(context, source)) return;
 
         mediaPlayer.prepareAsync();
         mediaPlayer.setOnPreparedListener(v -> {
@@ -83,6 +89,18 @@ public class CompactMusicPlayer extends ConstraintLayout {
         binding.playButton.setImageState(new int[] {isPlaying()? android.R.attr.state_activated : -android.R.attr.state_activated}, false);
     }
 
+    public void updateSongDetails() {
+        if(source == null) return;
+
+        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+        mediaMetadataRetriever.setDataSource(getContext(), source);
+
+        String artist = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        String title = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+
+        binding.songNameTextView.setText(String.format("%s - %s", artist, title));
+    }
+
     public boolean isPlaying() {
         if(mediaPlayer == null) return false;
 
@@ -95,6 +113,7 @@ public class CompactMusicPlayer extends ConstraintLayout {
 
     public void setSource(Uri source) {
         this.source = source;
+        updateSongDetails();
     }
 
     public MediaPlayer getMediaPlayer() {

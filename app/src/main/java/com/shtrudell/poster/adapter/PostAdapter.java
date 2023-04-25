@@ -1,7 +1,9 @@
 package com.shtrudell.poster.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shtrudell.poster.MainActivity;
 import com.shtrudell.poster.Post;
 import com.shtrudell.poster.R;
+import com.shtrudell.poster.fragment.ImageFragment;
+import com.shtrudell.poster.fragment.PostWriterFragment;
 import com.shtrudell.poster.view.CompactMusicPlayer;
 
 import java.util.Hashtable;
@@ -24,6 +30,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     private final LayoutInflater inflater;
     private final List<Post> posts;
     private final Map<Integer, MediaPlayer> musicPlayerDictionary = new Hashtable<>();
+    private OnPostClickListener onPostClickListener;
+    private OnImageClickListener onImageClickListener;
 
     public PostAdapter(Context context, List<Post> posts) {
         this.posts = posts;
@@ -35,16 +43,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.post_card, parent, false);
 
-        view.findViewById(R.id.image_imageView).setOnClickListener(v -> {
-
-        });
-
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
+
+        holder.itemView.setOnClickListener(v -> {
+            onPostClickListener.onPostClick(post);
+        });
+
         //header
         if(post.getHeader() == null || post.getHeader().isEmpty())
             holder.headerTextView.setVisibility(View.GONE);
@@ -60,6 +69,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             holder.imageImageView.setVisibility(View.GONE);
         else
         {
+            holder.imageImageView.setOnClickListener(v -> {
+                if(onImageClickListener != null)
+                    onImageClickListener.onImageClick(post.getImage());
+            });
+
             holder.imageImageView.setVisibility(View.VISIBLE);
             holder.imageImageView.setImageURI(post.getImage());
         }
@@ -84,6 +98,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    public void setOnPostClickListener(OnPostClickListener onPostClickListener) {
+        this.onPostClickListener = onPostClickListener;
+    }
+
+    public void setOnImageClickListener(OnImageClickListener onImageClickListener) {
+        this.onImageClickListener = onImageClickListener;
+    }
+
+    public interface OnPostClickListener {
+        void onPostClick(Post post);
+    }
+
+    public interface OnImageClickListener {
+        void onImageClick(Uri source);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
