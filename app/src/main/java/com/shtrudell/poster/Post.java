@@ -6,15 +6,12 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import org.json.simple.JSONObject;
+
 import java.io.Serializable;
 import java.net.URI;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-public class Post implements Serializable, Parcelable {
+public class Post implements Serializable, Parcelable{
     private String header;
     private String text;
     private Uri image;
@@ -43,6 +40,11 @@ public class Post implements Serializable, Parcelable {
         text = in.readString();
         image = in.readParcelable(Uri.class.getClassLoader());
         song = in.readParcelable(Uri.class.getClassLoader());
+    }
+
+    public Post() {
+        header = null;
+        text = null;
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
@@ -100,5 +102,37 @@ public class Post implements Serializable, Parcelable {
         parcel.writeString(text);
         parcel.writeParcelable(image, i);
         parcel.writeParcelable(song, i);
+    }
+
+    public JSONObject parseToJSON() {
+        JSONObject post = new JSONObject();
+        post.put("header", header == null? "" : header.toString());
+        post.put("text", text == null? "" : text.toString());
+        post.put("image_source", image == null? "" : image.toString());
+        post.put("song_source", song == null? "" : song.toString());
+
+        return post;
+    }
+
+    public static Post parseFromJSON(JSONObject object) {
+        Post post = new Post();
+
+        String header = (String) object.get("header");
+        if(!header.isEmpty())
+            post.setHeader(header);
+
+        String text = (String)object.get("text");
+        if(!text.isEmpty())
+            post.setText(text);
+
+        String imageSource = (String)object.get("image_source");
+        if(!imageSource.isEmpty())
+            post.setImage(Uri.parse(imageSource));
+
+        String songSource = (String)object.get("song_source");
+        if(!songSource.isEmpty())
+            post.setSong(Uri.parse(songSource));
+
+        return post;
     }
 }
