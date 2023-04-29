@@ -1,4 +1,4 @@
-# poster
+# Poster
 
 <img src="https://user-images.githubusercontent.com/70441070/234600827-465b6781-2ed7-40f9-b898-d7ea009e95b0.jpg" width="250" height="530">
 
