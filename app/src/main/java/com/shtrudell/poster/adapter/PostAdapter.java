@@ -21,6 +21,7 @@ import com.shtrudell.poster.fragment.ImageFragment;
 import com.shtrudell.poster.fragment.PostWriterFragment;
 import com.shtrudell.poster.view.CompactMusicPlayer;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     private final LayoutInflater inflater;
     private final List<Post> posts;
     private final Map<Integer, MediaPlayer> musicPlayerDictionary = new Hashtable<>();
+    private final List<CompactMusicPlayer> players= new ArrayList<>();
     private OnPostClickListener onPostClickListener;
     private OnImageClickListener onImageClickListener;
 
@@ -50,8 +52,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
 
+        players.add(holder.musicPlayer);
         holder.itemView.setOnClickListener(v -> {
             onPostClickListener.onPostClick(post);
+        });
+
+        holder.musicPlayer.setListenerStart(() ->{
+            musicPlayerDictionary.forEach((integer, mediaPlayer) -> {
+                if(holder.musicPlayer.getMediaPlayer() != mediaPlayer) {
+                    for(CompactMusicPlayer player : players){
+                        if(player != holder.musicPlayer)
+                            player.stop();
+                    }
+                }
+            });
         });
 
         //header

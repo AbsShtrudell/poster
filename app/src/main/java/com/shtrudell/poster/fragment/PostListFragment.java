@@ -50,7 +50,7 @@ public class PostListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Objects.requireNonNull(getActivity()).deleteFile(FILE_NAME);
+        Objects.requireNonNull(getActivity()).deleteFile(FILE_NAME);
         if(posts == null) {
             posts = load();
 

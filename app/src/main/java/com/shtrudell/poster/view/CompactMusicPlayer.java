@@ -23,6 +23,12 @@ public class CompactMusicPlayer extends ConstraintLayout {
     private Context context;
     private OnMediaPlayerUpdatedListener listener;
 
+    public void setListenerStart(OnMediaPlayerStartedListener listenerStart) {
+        this.listenerStart = listenerStart;
+    }
+
+    private OnMediaPlayerStartedListener listenerStart;
+
     public CompactMusicPlayer(Context context) {
         super(context);
         init(context);
@@ -73,6 +79,9 @@ public class CompactMusicPlayer extends ConstraintLayout {
 
         mediaPlayer.prepareAsync();
         mediaPlayer.setOnPreparedListener(v -> {
+            if(listenerStart != null)
+                listenerStart.onMediaPlayerStarted();
+
             mediaPlayer.start();
             updateButtonState();
         });
@@ -134,5 +143,9 @@ public class CompactMusicPlayer extends ConstraintLayout {
 
     public interface OnMediaPlayerUpdatedListener {
         void onMediaPlayerUpdated();
+    }
+
+    public interface OnMediaPlayerStartedListener {
+        void onMediaPlayerStarted();
     }
 }
